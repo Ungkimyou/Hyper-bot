@@ -3,41 +3,57 @@ const client = new Discord.Client();
 const config = require("./config.json");
 const botconfig = require('./botconfig.json');
 
-
 client.on('ready', () => {const config = require("./config.json");
     console.log(`Logged in as ${client.user.tag} on ${client.guilds.size} Servers ..`);
     client.user.setActivity(`${config.prefix}help for help▪■Dragon -_-■▪ `, { type: 'watching' })
    //client.user.setActivity(`TESTS`
-  });
-client.on('message', message => {
-  if (message.content === 'ping') {
-    message.reply('Pong!ng hz');
-  }
+client.on("message", async message => {
+  if(message.author.bot) return;
+  if(message.channel.type === "dm") return;
 
-
-});
-client.on("message", (message) => {
-  if (!message.content.startsWith(config.prefix) || message.author.bot) return;
-
-  if (message.content.startsWith(config.prefix + "pin")) {
-    message.channel.send("pong!");
-  } else
-  if (message.content.startsWith(config.prefix + "foo")) {
-    message.channel.send("bar!");
-  }
-   if(message.content.startsWith(config.prefix + "avatar") { 
-     let msg = await message.channel.send("Waitng avatar..."); 
-     let mentionedUser = message.mentions.users.first() || message.author; 
-     let avatarEmbed = new Discord.RichEmbed() 
-     .setImage(mentionedUser.displayAvatarURL) 
-     .setColor(`RANDOM`) 
-     .setTitle(`Avatar`) 
-     .setDescription("[Avatar Link]("+mentionedUser.displayAvatarURL+")") 
-     .setFooter(`Requested by ${message.author.tag}`); message.channel.send(avatarEmbed) 
-     msg.delete();
+  let prefix = config.prefix;
+  let messageArray = message.content.split(" ");
+  let command = messageArray[0];
+  let args = messageArray.slice(1);
+    
+   if(command === `${prefix}ping`) {
+    const m = await message.channel.send("Ping?");
+    m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
+ } 
+   if(command ===`${prefix}say`) {
+   message.channel.send(args.join(" "))
+}
+ if(command ===`${prefix}avatar`) {
+   message.channel.send(`${message.author.avatarURL}`).then(msg => msg.delete(11000));
  }
-});
+  if(command === `${prefix}embed`) {
+ if(!message.member.hasPermission("MANAGE_MESSAGE")) return message.reply("you don't have permssion **MANAGE MESSAGE** to use this !");   
+    let embed = args.join(" ");
+    let embedsay = new Discord.RichEmbed()
+    .setColor('RANDOM')
+    .setDescription(embed)
+    message.channel.send(embedsay)
+    message.delete();
+  
+  }
+  
+   if(message === `${prefix}serverinfo`) { 
+     
+   let sicon = message.guild.iconURL;
+    let serverembed = new Discord.RichEmbed()
+    .setDescription("Server Information")
+    .setColor('RANDOM')
+    .setThumbnail("sicon")
+    .addField("Server Name", message.guild.name)
+    .addField("Created On", message.guild.createdAt)
+    .addField("You Joined", message.member.joinedAt)
+    .addField("Total Members", message.guild.memberCount);
 
+    return message.channel.send(serverembed);
+  }
+  
+});  
+    
 client.on("presenceUpdate", (oldMember, newMember) => {
   let guild = newMember.guild;
   let playRole = guild.roles.find("name", "Playing PLAYERUNKNOWN'S BATTLEGROUNDS");
