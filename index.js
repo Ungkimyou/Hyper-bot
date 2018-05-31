@@ -6,7 +6,7 @@ const botconfig = require('./botconfig.json');
 
 client.on('ready', () => {const config = require("./config.json");
     console.log(`Logged in as ${client.user.tag} on ${client.guilds.size} Servers ..`);
-    client.user.setActivity(`${config.prefix}help for help▪■Dragon■▪ `, { type: 'watching' })
+    client.user.setActivity(`${config.prefix}help for help▪■Dragon -_-■▪ `, { type: 'watching' })
    //client.user.setActivity(`TESTS`
   });
 client.on('message', message => {
