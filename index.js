@@ -14,9 +14,17 @@ client.on('message', message => {
     message.reply('Pong!ng hz');
   }
 
- if (message.content === 'avatar') {
-message.channel.send(`${message.author.avatarURL}`);
-}
+ if(command === "avatar") { 
+     let msg = await message.channel.send("Waitng avatar..."); 
+     let mentionedUser = message.mentions.users.first() || message.author; 
+     let avatarEmbed = new Discord.RichEmbed() 
+     .setImage(mentionedUser.displayAvatarURL) 
+     .setColor(`RANDOM`) 
+     .setTitle(`Avatar`) 
+     .setDescription("[Avatar Link]("+mentionedUser.displayAvatarURL+")") 
+     .setFooter(`Requested by ${message.author.tag}`); message.channel.send(avatarEmbed) 
+     msg.delete();
+ }
 });
 client.on("message", (message) => {
   if (!message.content.startsWith(config.prefix) || message.author.bot) return;
