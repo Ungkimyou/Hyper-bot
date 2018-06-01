@@ -5,7 +5,7 @@ const botconfig = require('./botconfig.json');
 
 client.on('ready', () => {const config = require("./config.json");
     console.log(`Logged in as ${client.user.tag} on ${client.guilds.size} Servers ..`);
-    client.user.setActivity(`${config.prefix}help for help▪■Dragon -_-■▪ `, { type: 'watching' })
+    client.user.setActivity(`${config.prefix}help for help `, { type: 'watching' })
    //client.user.setActivity(`TESTS`
 client.on("message", async message => {
   if(message.author.bot) return;
@@ -37,20 +37,6 @@ client.on("message", async message => {
   
   }
   
-   if(message === `${prefix}serverinfo`) { 
-     
-   let sicon = message.guild.iconURL;
-    let serverembed = new Discord.RichEmbed()
-    .setDescription("Server Information")
-    .setColor('RANDOM')
-    .setThumbnail("sicon")
-    .addField("Server Name", message.guild.name)
-    .addField("Created On", message.guild.createdAt)
-    .addField("You Joined", message.member.joinedAt)
-    .addField("Total Members", message.guild.memberCount);
-
-    return message.channel.send(serverembed);
-  }
   
 });  
     
