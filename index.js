@@ -129,4 +129,4 @@ client.on("presenceUpdate", (oldMember, newMember) => {
 });
 
 
-client.login(config.token);
+client.login(config.boy_token);
